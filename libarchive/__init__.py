@@ -521,8 +521,8 @@ class Archive(object):
         '''Write current archive entry contents to file. f can be a file-like object or
         a path.'''
         if isinstance(f, basestring):
-            basedir = os.path.basename(f)
-            if not os.path.exists(basedir):
+            basedir = os.path.dirname(f)
+            if basedir and not os.path.exists(basedir):
                 os.makedirs(basedir)
             f = file(f, 'w')
         return _libarchive.archive_read_data_into_fd(self._a, f.fileno())
